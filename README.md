@@ -1,2 +1,2 @@
 # sqs-spring
-sqs-spring demo project
+spring-sqs demo
