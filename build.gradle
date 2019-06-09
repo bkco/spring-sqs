@@ -1,0 +1,61 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+// plugins that help build artifacts
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
+
+group = 'co.bk.task.sqs'
+version = '0.0.1-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '2.0.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+// intellij recognise project
+idea {
+    module {
+        jdkName = '1.8'
+    }
+}
+
+ext {
+    springBootVersion = '2.0.1.RELEASE'
+    springCloudVersion = 'Greenwich.SR1'
+}
+
+// BOM e.g https://github.com/spring-projects/spring-boot/blob/2.0.x/spring-boot-project/spring-boot-dependencies/pom.xml
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    compile 'org.projectlombok:lombok:1.18.8'
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
+    compile 'com.amazonaws:aws-java-sdk-sts' // AWS JDK v1.x required for spring-cloud messaging; AWS jdkv1 & jdkv2 can be imported without conflicts.
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
