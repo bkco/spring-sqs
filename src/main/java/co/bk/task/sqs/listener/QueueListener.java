@@ -1,5 +1,6 @@
 package co.bk.task.sqs.listener;
 
+import co.bk.task.sqs.message.QueueMessage;
 import co.bk.task.sqs.service.QueueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +19,8 @@ public class QueueListener {
     }
 
     @SqsListener(value = "${bkco.sqs.queueName}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
-    public void listen(String message, String messageId) {
-        log.debug("message received : {}, messageId: {} ", message, messageId);
-        queueService.process(message);
+    public void listen(QueueMessage message) {
+        log.debug("message received : {}, messageId: {} ", message);
+        queueService.process(message.getSubscription_id());
     }
 }
