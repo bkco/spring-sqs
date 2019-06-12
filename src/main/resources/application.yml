@@ -1,7 +1,9 @@
 bkco:
   aws:
     accessKey: xxxxx
-    secretKey: xxxxx
+    secretKey: xxxx
+  sqs:
+    queueName: myqueue
 
 cloud:
   aws:

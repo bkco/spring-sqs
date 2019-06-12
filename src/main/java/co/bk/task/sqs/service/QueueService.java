@@ -2,6 +2,7 @@ package co.bk.task.sqs.service;
 
 import co.bk.task.sqs.message.QueueMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -10,11 +11,13 @@ import java.util.UUID;
 @Slf4j
 public class QueueService {
 
-    private final SqsMessageService sqsMessageQueueService;
-    private final String queueName = "myqueue.fifo";
+    private final SqsMessageService sqsMessageService;
 
-    public QueueService(final SqsMessageService sqsMessageQueueService) {
-        this.sqsMessageQueueService = sqsMessageQueueService;
+    @Value("${bkco.sqs.queueName}")
+    private String queueName;
+
+    public QueueService(final SqsMessageService sqsMessageService) {
+        this.sqsMessageService = sqsMessageService;
     }
 
     public void process(String message) {
@@ -32,6 +35,6 @@ public class QueueService {
         QueueMessage queueMessage = new QueueMessage();
         queueMessage.setId(UUID.randomUUID().toString().replace("-", ""));
         queueMessage.setMessage("Heh Heh My My.... sqs message");
-        sqsMessageQueueService.sendMessage(queueName, queueMessage);
+        sqsMessageService.sendMessage(queueName, queueMessage);
     }
 }

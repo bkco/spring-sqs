@@ -2,6 +2,7 @@ package co.bk.task.sqs.listener;
 
 import co.bk.task.sqs.service.QueueService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.listener.SqsMessageDeletionPolicy;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class QueueListener {
         this.queueService = queueService;
     }
 
-    @SqsListener(value = "myqueue.fifo", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
+    @SqsListener(value = "${bkco.sqs.queueName}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
     public void listen(String message, String messageId) {
         log.debug("message received : {}, messageId: {} ", message, messageId);
         queueService.process(message);

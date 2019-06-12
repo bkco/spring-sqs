@@ -31,7 +31,7 @@ repositories {
 // intellij recognise project
 idea {
     module {
-        jdkName = '1.8'
+        jdkName = '11'
     }
 }
 

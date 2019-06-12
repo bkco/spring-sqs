@@ -2,6 +2,7 @@ package co.bk.task.sqs.config;
 
 
 import com.amazonaws.auth.*;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,9 @@ public class AppConfig {
 
     @Value("${cloud.aws.region.static}")
     private String region;
+
+    @Value("${spring.profiles.active:not_production}")
+    private String activeProfile;
 
     @Bean
     public AWSCredentialsProvider awsCredentialsProvider() {
