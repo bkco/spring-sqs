@@ -50,6 +50,7 @@ dependencyManagement {
 
 dependencies {
     compile 'org.projectlombok:lombok:1.18.8'
+    //annotationProcessor 'org.projectlombok:lombok:1.18.8'  // requires gradle v5
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
